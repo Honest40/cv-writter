@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HB GRAPHICS – Smart CV & Application Maker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+body{font-family:Arial,sans-serif;background:#f7f9fc;margin:0;padding:0;color:#0f2a44}
+.container{max-width:950px;margin:20px auto;padding:20px}
+.card{background:#fff;padding:25px;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.1);margin-bottom:20px;transition:0.3s}
+.card:hover{box-shadow:0 8px 25px rgba(0,0,0,0.15)}
+h1,h2,h3{margin:0 0 10px 0}
+h1{font-weight:bold;color:#0f2a44;text-align:center;font-size:30px;margin-bottom:25px}
+input,textarea,select,button{width:100%;padding:12px;margin-top:10px;font-size:15px;border:1px solid #ccc;border-radius:6px;box-sizing:border-box}
+input:focus,textarea:focus,select:focus{border-color:#198754;outline:none}
+button{
+  background:red;
+  color:white;
+  border:none;
+  border-radius:6px;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+  margin-top:10px;
+}
+button:hover{
+  background:#b30000; /* Darker red on hover */
+}
+
+button:hover{background:#0f2a44}
+#preview{display:none;position:relative;padding-top:20px}
+.watermark{position:absolute;top:35%;left:5%;font-size:45px;color:rgba(0,0,0,0.08);transform:rotate(-25deg);pointer-events:none;user-select:none;text-align:center;width:90%;font-weight:bold;}
+.print-btn{background:#0f2a44;margin-top:20px}
+.pay-box{background:#e2f0d9;padding:15px;border-radius:6px;margin-top:20px;font-size:15px;line-height:1.5}
+.pay-box b{color:#0f2a44}
+.color-picker{margin-top:5px}
+.section-group{margin-bottom:15px;}
+ul{padding-left:20px}
+.example-box{background:#e8f5e9;padding:15px;border-left:6px solid #198754;border-radius:6px;margin-top:10px;font-size:14px;line-height:1.5}
+.example-box b{color:#198754;}
+.tab-buttons{display:flex;gap:10px;margin-bottom:15px;flex-wrap:wrap}
+.tab-buttons button{flex:1}
+@media print{button,.pay-box,.watermark,.color-picker,.example-box,.tab-buttons{display:none}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>HB GRAPHICS – Smart CV & Application Maker</h1>
+<div class="tab-buttons">
+    
+    <button onclick="showServicesTab()">Professional Services</button>
+
+<button onclick="showTab('cv')">CV Builder</button>
+<button onclick="showTab('app')">Job Application</button>
+</div>
+
+
+<!-- ================= Professional Services Hub ================= -->
+<div id="servicesSection" class="card" style="display:none;">
+<h2>Professional Services Hub</h2>
+
+<label>Select Service:</label>
+<select id="serviceSelect">
+  <option value="cvEdit">CV Editing & Optimization – K70</option>
+  <option value="coverLetter">Cover Letter Writing – K60</option>
+  <option value="jobApp">Job Application Review – K80</option>
+  <option value="logoDesign">Logo Design – K150</option>
+  <option value="socialMediaPost">Social Media Banner / Post – K100</option>
+  <option value="flyerDesign">Flyer Design – K120</option>
+  <option value="posterDesign">Poster Design – K120</option>
+  <option value="businessCard">Business Card Design – K80</option>
+  <option value="brandKit">Brand Kit / Identity Pack – K150</option>
+  <option value="docFormatting">Document Formatting & Layout – K60</option>
+  <option value="printPrep">Print-Ready File Preparation – K90</option>
+  <option value="embroideryDesign">Embroidery Design / Mockup – K110</option>
+  <option value="htmlTemplate">HTML Template – K120</option>
+  <option value="githubPortfolio">GitHub Portfolio Setup – K130</option>
+  <option value="customPDF">Custom PDF Automation – K100</option>
+  <option value="cvTemplate">CV Template Creation – K80</option>
+  <option value="coverLetterTemplate">Cover Letter Template – K70</option>
+  <option value="jobAppTemplate">Job Application Template – K80</option>
+  <option value="resumeTemplate">Resume Template – K80</option>
+  <option value="socialMediaPack">Social Media Post Pack (5 designs) – K150</option>
+  <option value="bannerAds">Banner Ads Design – K100</option>
+  <option value="tshirtDesign">T-shirt Design – K100</option>
+  <option value="stickerLabel">Sticker / Label Design – K90</option>
+  <option value="invitationCard">Invitation Card Design – K100</option>
+  <option value="brochure">Brochure / Pamphlet Design – K150</option>
+  <option value="certificate">Certificate Design – K100</option>
+  <option value="menuDesign">Menu Design (Restaurant / Cafe) – K150</option>
+  <option value="logoAnimation">Logo Animation / GIF – K250</option>
+  <option value="watermarkDesign">Watermark / Branding Design – K70</option>
+  <option value="emailSignature">Email Signature Design – K60</option>
+  <option value="presentationDesign">Presentation Design (PowerPoint/Google Slides) – K100</option>
+  <option value="cvProofreading">CV Proofreading – K50</option>
+  <option value="appLetterProofreading">Application Letter Proofreading – K50</option>
+  <option value="resumeProofreading">Resume Proofreading – K50</option>
+  <option value="personalBranding">Personal Branding Consultation – K120</option>
+  <option value="businessCardMockup">Business Card Mockup – K80</option>
+  <option value="embroideryPattern">Embroidery Pattern Digital File – K110</option>
+  <option value="printFileCustom">Print File Customization (T-shirt, Mug, Poster) – K90</option>
+  <option value="webLandingPage">Web Landing Page Design – K130</option>
+  <option value="simpleWebsite">Simple Website (1–3 pages) – K150</option>
+  <option value="htmlCssCustom">HTML/CSS Template Customization – K120</option>
+  <option value="githubSetup">GitHub Repository Setup – K100</option>
+  <option value="portfolioWebsite">Portfolio Website – K150</option>
+  <option value="pdfFormCreation">PDF Form Creation – K80</option>
+  <option value="editableTemplateCreation">Editable Template Creation – K100</option>
+  <option value="onlineCVGenerator">Online CV Generator Setup – K150</option>
+  <option value="jobAppAutomation">Job Application Automation – K130</option>
+  <option value="digitalFlyerDistribution">Digital Flyer Distribution Design – K100</option>
+  <option value="brandingConsultation">Branding Consultation & Mockups – K150</option>
+  <option value="customDesignRequest">Custom Design Requests – K150</option>
+</select>
+
+<div class="section-group">
+<label>Upload Your Document / File (Optional):</label>
+<input type="file" id="docUpload" accept=".doc,.docx,.pdf,.txt,.png,.jpg,.jpeg">
+</div>
+
+<div class="section-group">
+<label>Additional Instructions:</label>
+<textarea id="docNotes" placeholder="Add any notes or instructions for your service..."></textarea>
+</div>
+
+<button onclick="submitDocumentService()">Submit Request</button>
+
+<div class="pay-box">
+<b>Payment Details:</b><br>
+Pay the selected service via Airtel Money:<br>
+📲 <b>+260776942402</b><br>
+🧾 Name: <b>Honest Bu...</b><br>
+Send payment screenshot via WhatsApp to confirm.<br>
+✅ Your request will be processed promptly.
+</div>
+</div>
+
+<script>
+// ------------------ Show Services Tab ------------------
+function showServicesTab() {
+  document.getElementById('cvSection').style.display='none';
+  document.getElementById('appSection').style.display='none';
+  document.getElementById('servicesSection').style.display='block';
+  document.getElementById('preview').style.display='none';
+}
+
+// ------------------ Submit Document Service ------------------
+function submitDocumentService(){
+  const serviceSelect = document.getElementById('serviceSelect');
+  const serviceText = serviceSelect.options[serviceSelect.selectedIndex].text;
+  const fileInput = document.getElementById('docUpload');
+  const notes = document.getElementById('docNotes').value;
+
+  let fileName = fileInput.files.length > 0 ? fileInput.files[0].name : "No file uploaded";
+
+  alert(`Service: ${serviceText}\nDocument: ${fileName}\nNotes: ${notes}\n\nPlease complete payment via Airtel Money and send your screenshot to +260776942402 on WhatsApp to confirm.`);
+}
+</script>
+
+
+<!-- CV Section -->
+<div id="cvSection" class="card">
+<h2>CV Builder</h2>
+<label>Select CV Template:</label>
+<select id="cvTemplateSelect" onchange="loadCVTemplate()"></select>
+
+<div class="section-group">
+<label>Full Name:</label><input id="cvNameInput" placeholder="Full Name">
+<label>Phone Number:</label><input id="cvPhoneInput" placeholder="Phone Number">
+<label>Email:</label><input id="cvEmailInput" placeholder="Email Address">
+<label>Address:</label><input id="cvAddressInput" placeholder="Address">
+</div>
+
+<div class="section-group">
+<label>Professional Summary:</label><textarea id="cvProfileInput"></textarea>
+</div>
+
+<div class="section-group">
+<label>Education:</label><textarea id="cvEducationInput"></textarea>
+</div>
+
+<div class="section-group">
+<label>Skills (comma separated):</label><textarea id="cvSkillsInput"></textarea>
+</div>
+
+<div class="section-group">
+<label>Work Experience (separate lines):</label><textarea id="cvExperienceInput"></textarea>
+</div>
+
+<div class="section-group">
+<label>CV Color Customization:</label>
+<label>Header Color:</label><input type="color" id="cvHeaderColor" value="#198754" class="color-picker">
+<label>Text Color:</label><input type="color" id="cvTextColor" value="#0f2a44" class="color-picker">
+<label>Background Color:</label><input type="color" id="cvBgColor" value="#ffffff" class="color-picker">
+</div>
+
+<button onclick="generateCV()">Preview / Download CV</button>
+<div class="example-box"><b>Examples / Inspiration:</b><br>Use realistic summaries, skills, experience, and education to make your CV stronger.</div>
+</div>
+
+<!-- Application Section -->
+<div id="appSection" class="card" style="display:none;">
+<h2>Job Application / Cover Letter</h2>
+<label>Select Application Template:</label>
+<select id="appTemplateSelect" onchange="loadAppTemplate()"></select>
+
+<div class="section-group">
+<label>Full Name:</label><input id="appNameInput">
+<label>Position Applying For:</label><input id="appPositionInput">
+<label>Company Name:</label><input id="appCompanyInput">
+<label>Professional Summary / Motivation:</label><textarea id="appSummaryInput"></textarea>
+<label>CV Highlights (optional):</label><textarea id="appCVInput"></textarea>
+<label>Color Customization:</label>
+<label>Header Color:</label><input type="color" id="appHeaderColor" value="#198754" class="color-picker">
+<label>Text Color:</label><input type="color" id="appTextColor" value="#0f2a44" class="color-picker">
+<label>Background Color:</label><input type="color" id="appBgColor" value="#ffffff" class="color-picker">
+</div>
+
+<button onclick="generateApplication()">Preview / Download Application</button>
+<div class="example-box"><b>Example / Inspiration:</b><br>"Dear XYZ Ltd., I am excited to apply for the Software Developer position. I have experience in web development and teamwork skills. Please find my CV attached."</div>
+</div>
+
+<!-- Preview Section -->
+<div id="preview" class="card">
+<div class="watermark" id="previewWatermark"></div>
+<div id="previewContent">
+<h2 id="previewTitle"></h2>
+<div id="previewBody"></div>
+</div>
+<button class="print-btn" onclick="downloadPDF()">Download PDF</button>
+
+<div class="pay-box">
+<b>Payment Required:</b><br>
+Pay <b>K20</b> via Airtel Money:<br>
+📲 <b>+260776942402</b><br>
+🧾 Name: <b>Honest Bu...</b><br>
+Send payment screenshot on WhatsApp to confirm.<br>
+✅ Receive clean PDF.
+</div>
+</div>
+
+<script>
+// ------------------ CV Templates ------------------
+const cvTemplates=[
+{"name":"Alice Mwansa","phone":"+260971234567","email":"alice.mwansa@email.com","address":"Lusaka, Zambia","summary":"Experienced Marketing Specialist skilled in social media campaigns and brand management.","skills":"Marketing, Social Media, Branding, Communication, Teamwork","education":"Bachelor of Business Administration, University of Zambia","experience":"Marketing Intern at XYZ Ltd, 6 months\nSocial Media Coordinator at ABC Co, 2 years"},
+{"name":"Brian Phiri","phone":"+260971234568","email":"brian.phiri@email.com","address":"Ndola, Zambia","summary":"Software Engineer with expertise in web development and mobile applications.","skills":"JavaScript, Python, HTML, CSS, React, Node.js","education":"Bachelor of Science in Computer Science, Copperbelt University","experience":"Internship at Tech Solutions Ltd, 1 year\nFreelance Web Developer, 2 years"},
+{"name":"Chipo Lungu","phone":"+260971234569","email":"chipo.lungu@email.com","address":"Kitwe, Zambia","summary":"Dedicated Nurse with 5 years of hospital experience providing patient care and health education.","skills":"Patient Care, Medical Records, Teamwork, Communication, Emergency Response","education":"Diploma in Nursing, Ndola Nursing College","experience":"Registered Nurse at Lusaka General Hospital, 5 years\nCommunity Health Volunteer, 2 years"},
+{"name":"Daniel Banda","phone":"+260971234570","email":"daniel.banda@email.com","address":"Livingstone, Zambia","summary":"Finance Officer with experience in accounting, reporting, and budget management.","skills":"Accounting, Excel, Budgeting, Financial Analysis, Reporting","education":"Bachelor of Commerce in Accounting, University of Zambia","experience":"Accountant at FinanceCorp Ltd, 3 years\nInternship at XYZ Bank, 6 months"},
+{"name":"Esther Phiri","phone":"+260971234571","email":"esther.phiri@email.com","address":"Lusaka, Zambia","summary":"High School Teacher with 4 years experience in Mathematics and Physics teaching.","skills":"Teaching, Lesson Planning, Classroom Management, Communication, Assessment","education":"Bachelor of Education, University of Zambia","experience":"Math & Physics Teacher at Lusaka Secondary School, 4 years\nPrivate Tutoring, 2 years"},
+{"name":"Felix Mwansa","phone":"+260971234572","email":"felix.mwansa@email.com","address":"Kitwe, Zambia","summary":"Sales Executive with proven track record in increasing revenue and client retention.","skills":"Sales, Negotiation, CRM, Communication, Teamwork","education":"Diploma in Marketing, Copperbelt University","experience":"Sales Executive at ABC Ltd, 3 years\nSales Intern at XYZ Co, 1 year"},
+{"name":"Grace Zulu","phone":"+260971234573","email":"grace.zulu@email.com","address":"Lusaka, Zambia","summary":"Civil Engineer skilled in project management and structural design.","skills":"AutoCAD, Project Management, Structural Design, Communication, Teamwork","education":"Bachelor of Engineering in Civil Engineering, University of Zambia","experience":"Civil Engineer at BuildIt Ltd, 4 years\nInternship at Urban Design Co, 6 months"},
+{"name":"Henry Nkhoma","phone":"+260971234574","email":"henry.nkhoma@email.com","address":"Ndola, Zambia","summary":"Customer Service Representative with 5 years experience in client support and problem-solving.","skills":"Customer Support, Communication, Problem Solving, CRM, Teamwork","education":"Diploma in Business Administration, Ndola College","experience":"Customer Service at XYZ Ltd, 5 years\nInternship at ABC Call Center, 1 year"},
+{"name":"Irene Chanda","phone":"+260971234575","email":"irene.chanda@email.com","address":"Lusaka, Zambia","summary":"Graphic Designer experienced in branding, social media content, and print design.","skills":"Adobe Photoshop, Illustrator, Branding, Creativity, Communication","education":"Diploma in Graphic Design, University of Zambia","experience":"Graphic Designer at HB Graphics, 3 years\nFreelance Designer, 2 years"},
+{"name":"Jason Lungu","phone":"+260971234576","email":"jason.lungu@email.com","address":"Kitwe, Zambia","summary":"IT Support Specialist with expertise in troubleshooting and network management.","skills":"Networking, Troubleshooting, Windows/Linux, Communication, Teamwork","education":"Diploma in IT, Copperbelt University","experience":"IT Support at Tech Solutions Ltd, 3 years\nInternship at ABC IT, 6 months"},
+// Continue filling until 50 CV templates
+];
+
+// ------------------ Application Templates ------------------
+const appTemplates=[
+{"name":"Alice Mwansa","position":"Marketing Specialist","company":"ABC Co","summary":"I am an experienced Marketing Specialist with a proven track record in social media campaigns and brand management.","cvHighlights":"2 years experience in social media coordination, internship at XYZ Ltd, Bachelor in Business Administration."},
+{"name":"Brian Phiri","position":"Software Engineer","company":"Tech Solutions Ltd","summary":"I am a Software Engineer with strong experience in web and mobile application development.","cvHighlights":"Internship at Tech Solutions Ltd, 1 year; Freelance Web Developer, 2 years; Bachelor in Computer Science."},
+{"name":"Chipo Lungu","position":"Registered Nurse","company":"Lusaka General Hospital","summary":"I am a dedicated nurse with 5 years of experience providing patient care and health education.","cvHighlights":"Registered Nurse, Lusaka General Hospital 5 years; Community Health Volunteer 2 years; Diploma in Nursing."},
+{"name":"Daniel Banda","position":"Finance Officer","company":"FinanceCorp Ltd","summary":"I am a Finance Officer skilled in accounting, reporting, and budget management.","cvHighlights":"Accountant at FinanceCorp Ltd 3 years; Internship at XYZ Bank 6 months; Bachelor of Commerce in Accounting."},
+{"name":"Esther Phiri","position":"Math & Physics Teacher","company":"Lusaka Secondary School","summary":"I am a high school teacher with 4 years of experience in Mathematics and Physics teaching.","cvHighlights":"Math & Physics Teacher at Lusaka Secondary School, 4 years; Private Tutoring 2 years; Bachelor of Education."},
+{"name":"Felix Mwansa","position":"Sales Executive","company":"ABC Ltd","summary":"I am a Sales Executive with a proven track record in increasing revenue and client retention.","cvHighlights":"Sales Executive at ABC Ltd, 3 years; Sales Intern at XYZ Co, 1 year; Diploma in Marketing."},
+{"name":"Grace Zulu","position":"Civil Engineer","company":"BuildIt Ltd","summary":"I am a Civil Engineer skilled in project management and structural design.","cvHighlights":"Civil Engineer at BuildIt Ltd, 4 years; Internship at Urban Design Co, 6 months; Bachelor of Engineering in Civil Engineering."},
+{"name":"Henry Nkhoma","position":"Customer Service Representative","company":"XYZ Ltd","summary":"I am a Customer Service Representative with 5 years experience in client support and problem-solving.","cvHighlights":"Customer Service at XYZ Ltd, 5 years; Internship at ABC Call Center, 1 year; Diploma in Business Administration."},
+{"name":"Irene Chanda","position":"Graphic Designer","company":"HB Graphics","summary":"I am a Graphic Designer experienced in branding, social media content, and print design.","cvHighlights":"Graphic Designer at HB Graphics, 3 years; Freelance Designer, 2 years; Diploma in Graphic Design."},
+{"name":"Jason Lungu","position":"IT Support Specialist","company":"Tech Solutions Ltd","summary":"I am an IT Support Specialist with expertise in troubleshooting and network management.","cvHighlights":"IT Support at Tech Solutions Ltd, 3 years; Internship at ABC IT, 6 months; Diploma in IT."},
+// Continue filling until 50 Application templates
+];
+
+// Populate dropdowns
+const cvSelect=document.getElementById('cvTemplateSelect');
+cvTemplates.forEach((t,i)=>{let opt=document.createElement('option');opt.value=i;opt.text=`CV Template ${i+1}`;cvSelect.add(opt);});
+const appSelect=document.getElementById('appTemplateSelect');
+appTemplates.forEach((t,i)=>{let opt=document.createElement('option');opt.value=i;opt.text=`Application Template ${i+1}`;appSelect.add(opt);});
+
+// ------------------ Functions ------------------
+function showTab(tab){document.getElementById('preview').style.display='none';if(tab==='cv'){document.getElementById('cvSection').style.display='block';document.getElementById('appSection').style.display='none';}else{document.getElementById('cvSection').style.display='none';document.getElementById('appSection').style.display='block';}}
+function loadCVTemplate(){const t=cvTemplates[cvSelect.value];document.getElementById('cvNameInput').value=t.name;document.getElementById('cvPhoneInput').value=t.phone;document.getElementById('cvEmailInput').value=t.email;document.getElementById('cvAddressInput').value=t.address;document.getElementById('cvProfileInput').value=t.summary;document.getElementById('cvSkillsInput').value=t.skills;document.getElementById('cvEducationInput').value=t.education;document.getElementById('cvExperienceInput').value=t.experience;}
+function loadAppTemplate(){const t=appTemplates[appSelect.value];document.getElementById('appNameInput').value=t.name;document.getElementById('appPositionInput').value=t.position;document.getElementById('appCompanyInput').value=t.company;document.getElementById('appSummaryInput').value=t.summary;document.getElementById('appCVInput').value=t.cvHighlights;}
+function sanitize(input){let temp=document.createElement('div');temp.textContent=input;return temp.innerHTML;}
+
+// Generate CV Preview
+function generateCV(){
+const title=document.getElementById('cvNameInput').value+" - CV";
+document.getElementById('previewTitle').innerHTML=sanitize(title);
+let body=`<p><b>Phone:</b> ${sanitize(document.getElementById('cvPhoneInput').value)}</p>
+<p><b>Email:</b> ${sanitize(document.getElementById('cvEmailInput').value)}</p>
+<p><b>Address:</b> ${sanitize(document.getElementById('cvAddressInput').value)}</p>
+<h3>Professional Summary</h3><p>${sanitize(document.getElementById('cvProfileInput').value)}</p>
+<h3>Education</h3><p>${sanitize(document.getElementById('cvEducationInput').value)}</p>
+<h3>Skills</h3><ul>`;
+document.getElementById('cvSkillsInput').value.split(',').forEach(s=>{if(s.trim()!=='') body+=`<li>${sanitize(s.trim())}</li>`;});
+body+=`</ul><h3>Work Experience</h3><ul>`;
+document.getElementById('cvExperienceInput').value.split('\n').forEach(e=>{if(e.trim()!=='') body+=`<li>${sanitize(e.trim())}</li>`;});
+body+='</ul>';
+document.getElementById('previewBody').innerHTML=body;
+document.getElementById('previewContent').style.color=document.getElementById('cvTextColor').value;
+document.getElementById('previewContent').style.background=document.getElementById('cvBgColor').value;
+document.getElementById('previewTitle').style.color=document.getElementById('cvHeaderColor').value;
+document.getElementById('previewWatermark').innerHTML="HB GRAPHICS – Smart CV Maker";
+document.getElementById('preview').style.display='block';
+}
+
+// Generate Application Preview
+function generateApplication(){
+const title="Job Application: "+document.getElementById('appPositionInput').value;
+document.getElementById('previewTitle').innerHTML=sanitize(title);
+const body=`Dear ${sanitize(document.getElementById('appCompanyInput').value)},<br>${sanitize(document.getElementById('appSummaryInput').value)}<br>${sanitize(document.getElementById('appCVInput').value)}`;
+document.getElementById('previewBody').innerHTML=body;
+document.getElementById('previewContent').style.color=document.getElementById('appTextColor').value;
+document.getElementById('previewContent').style.background=document.getElementById('appBgColor').value;
+document.getElementById('previewTitle').style.color=document.getElementById('appHeaderColor').value;
+document.getElementById('previewWatermark').innerHTML="HB GRAPHICS – Smart Application Maker";
+document.getElementById('preview').style.display='block';
+}
+
+// PDF Download
+async function downloadPDF(){
+const { jsPDF }=window.jspdf;
+const doc=new jsPDF('p','pt','a4');
+doc.setFontSize(60);doc.setTextColor(150);
+doc.text(document.getElementById('previewWatermark').innerText,50,400,{angle:45,align:'left'});
+doc.setFontSize(12);doc.setTextColor(0);
+doc.html(document.getElementById('previewContent'),{callback:function(pdf){pdf.save("document.pdf");},x:20,y:20,width:560});
+}
+</script>
+</body>
+</html>
