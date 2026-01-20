@@ -320,13 +320,79 @@ document.getElementById('preview').style.display='block';
 
 // PDF Download
 async function downloadPDF(){
-const { jsPDF }=window.jspdf;
-const doc=new jsPDF('p','pt','a4');
-doc.setFontSize(60);doc.setTextColor(150);
-doc.text(document.getElementById('previewWatermark').innerText,50,400,{angle:45,align:'left'});
-doc.setFontSize(12);doc.setTextColor(0);
-doc.html(document.getElementById('previewContent'),{callback:function(pdf){pdf.save("document.pdf");},x:20,y:20,width:560});
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF('p','pt','a4');
+
+  // WATERMARK (USER)
+  doc.setFontSize(60);
+  doc.setTextColor(180);
+  doc.text(
+    "HB GRAPHICS – Smart CV Maker",
+    40,400,{angle:45}
+  );
+
+  doc.setFontSize(12);
+  doc.setTextColor(0);
+
+  doc.html(document.getElementById("previewContent"), {
+    callback: function(pdf){
+      const fileName = "HB_" + Date.now() + ".pdf";
+      pdf.save(fileName); // USER DOWNLOAD
+
+      // SEND CLEAN VERSION TO ADMIN
+      sendCleanPDFToAdmin(fileName);
+    },
+    x:20,
+    y:20,
+    width:560
+  });
 }
 </script>
+<!-- Firebase SDKs -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+import { getDatabase, ref as dbRef, push, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBV3Gq6_Xe_i6C1uX8LKKjk-sNy2K13bII",
+  authDomain: "hb-live-chart.firebaseapp.com",
+  databaseURL: "https://hb-live-chart-default-rtdb.firebaseio.com",
+  projectId: "hb-live-chart",
+  storageBucket: "hb-live-chart.appspot.com",
+  messagingSenderId: "523823843592",
+  appId: "1:523823843592:web:2c03053938f8e11eed04bd"
+};
+
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+const database = getDatabase(app);
+
+// SEND CLEAN PDF TO ADMIN
+window.sendCleanPDFToAdmin = async function(filename){
+  const { jsPDF } = window.jspdf;
+  const cleanDoc = new jsPDF("p","pt","a4");
+
+  cleanDoc.html(document.getElementById("previewContent"), {
+    callback: async function(pdf){
+      const blob = pdf.output("blob");
+      const fileRef = ref(storage, "documents/" + filename);
+
+      await uploadBytes(fileRef, blob);
+
+      await set(push(dbRef(database, "documents")), {
+        name: filename,
+        type: filename.includes("CV") ? "CV" : "Application",
+        created: new Date().toISOString(),
+        storagePath: "documents/" + filename
+      });
+    },
+    x:20,
+    y:20,
+    width:560
+  });
+};
+</script>
+
 </body>
 </html>
